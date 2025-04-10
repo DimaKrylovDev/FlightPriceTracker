@@ -1,0 +1,56 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongo
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+    volumes: 
+      - mongo_container:/data/db
+    networks:
+      - mongo_network
+
+  mongo-express:
+    image: mongo-express:latest
+    ports:
+      - 8081:8081
+    env_file:
+      - .env
+    links:
+      - mongodb
+    networks:
+      - mongo_network
+    restart: no
+    depends_on:
+      - mongodb
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports: 
+      - 6379:6379
+    volumes:
+      - redis-container:/data
+    env_file:
+      - .env
+    
+  postgreSQL:
+    image: postgres:latest
+    container_name: postgres_container
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres-container:/data/db
+    env_file:
+      - .env
+      
+networks:
+  mongo_network:
+    driver: bridge
+
+volumes:
+  mongo_container:
+  postgres-container:
+  redis-container:
+
