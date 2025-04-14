@@ -15,11 +15,14 @@ class Settings(BaseSettings):
     ME_CONFIG_MONGODB_ADMINUSERNAME: str
     ME_CONFIG_MONGODB_ADMINPASSWORD: str
     ME_CONFIG_MONGODB_ENABLE_ADMIN: bool
+    
+    API_KEY: str
 
     @property
     def MONGODB_CLIENT(self):
+        print(self.MONGO_INITDB_ROOT_USERNAME, self.MONGO_INITDB_ROOT_PASSWORD)
         return AsyncIOMotorClient(f'mongodb://{self.MONGO_INITDB_ROOT_USERNAME}:{self.MONGO_INITDB_ROOT_PASSWORD}@'
-                f'{self.ME_CONFIG_MONGODB_HOST}:{self.ME_CONFIG_MONGODB_PORT}/{self.MONGO_INITDB_DATABASE}')
+                f'{self.ME_CONFIG_MONGODB_HOST}:{self.ME_CONFIG_MONGODB_PORT}')
         
     model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')
     
