@@ -1,7 +1,6 @@
 import json
 from core.config import settings
 from db.models.trips import Trips
-from db.models.user_town import UserTown
 from fastapi import HTTPException, status
 
 
@@ -21,7 +20,7 @@ async def check_trip(trip_number: int):
     return None 
     
 async def get_town_by_trip():
-    res = await UserTown.find_one({'trip_number': None})
+    res = await Trips.find_one({'trip_number': None})
     if not res:
         raise HTTPException(status_code=status.HTTP_204_NO_CONTENT, detail='Email is not registry')
     

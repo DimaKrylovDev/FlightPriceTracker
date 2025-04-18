@@ -1,7 +1,6 @@
 from core.config import settings
 from beanie import init_beanie
 from db.models.trips import Trips
-from db.models.user_town import UserTown
 from core.config import settings
 from redis import Redis
 
@@ -12,5 +11,5 @@ async def init():
     
     db=client.trips
     print(settings.MONGO_INITDB_ROOT_USERNAME, settings.MONGO_INITDB_ROOT_PASSWORD)
-    await init_beanie(database=db, document_models=[Trips, UserTown])
+    await init_beanie(database=db, document_models=[Trips])
     
