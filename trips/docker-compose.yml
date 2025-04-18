@@ -26,8 +26,27 @@ services:
     depends_on:
       - mongodb
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports: 
+      - 6379:6379
+    volumes:
+      - redis-container:/data
+    env_file:
+      - .env
+
+  celery-worker:
+    container_name: celery-worker
+    hostname: worker
+    command: celery -A celery_app worker -B -l INFO
+
+
+
+    
 volumes:
   mongo_container:
+  redis-container:
 
 networks:
   mongo_network:

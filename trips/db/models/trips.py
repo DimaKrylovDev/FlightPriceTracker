@@ -2,14 +2,15 @@ from beanie import Document
 from datetime import datetime
 
 class Trips(Document):
+    origin: str
+    destination: str
     trip_number: int
     departure_date: datetime
     arrival_date: datetime
-    departure_airport: str | None
     airline: str
-    flight_link: str | None
     price: int
     currency: str
+    created_at: datetime
     
     class Settings:
         collection = 'trips'
