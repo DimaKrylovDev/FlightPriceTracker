@@ -10,8 +10,3 @@ class User(Base):
     phone_number: Mapped[str] = mapped_column(unique=True)
     email: Mapped[str] = mapped_column(unique=True)
     hash_password: Mapped[str]
-
-    
-    
-
-    
